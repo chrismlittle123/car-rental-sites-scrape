@@ -1,9 +1,8 @@
-# greenmotion
+# Car Rental Sites Scrape
 
-TO DO:
+What it does:
 
-- Create backend project template
-- Create frontend project template
+Runs scrapes of several car rental site websites, on a schedule, using Docker + AWS.
 
 Start up:
 
