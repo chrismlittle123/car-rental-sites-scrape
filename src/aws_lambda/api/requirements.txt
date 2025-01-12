@@ -1,0 +1,6 @@
+git+https://github.com/Oxford-Data-Processes/aws-utils.git
+fastapi
+sqlalchemy
+mangum
+pydantic
+pyathena

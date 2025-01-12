@@ -1,0 +1,34 @@
+name: CI/CD Pipeline Prod
+
+on:
+  push:
+    tags:
+      - "**prod-deploy-*"
+
+jobs:
+  docker-lambda:
+    uses: Oxford-Data-Processes/github-actions/.github/workflows/docker-lambda.yml@main
+    secrets: inherit
+    strategy:
+      matrix:
+        CONFIG:
+          - lambda_name: process-data-lambda
+            build_directory: ./src/aws_lambda/process_data
+          - lambda_name: s3-event-router-lambda
+            build_directory: ./src/aws_lambda/s3_event_router
+          - lambda_name: api-lambda
+            build_directory: ./src/aws_lambda/api
+    with:
+      STAGE: prod
+      PROJECT: ${{ github.repository }}
+      CONFIG: ${{ toJson(matrix.CONFIG) }}
+      VERSION_NUMBER: ${{ github.run_number }}
+
+  terraform:
+    needs: docker-lambda
+    uses: Oxford-Data-Processes/github-actions/.github/workflows/terraform.yml@main
+    secrets: inherit
+    with:
+      STAGE: prod
+      PROJECT: ${{ github.repository }}
+      VERSION_NUMBER: ${{ github.run_number }}

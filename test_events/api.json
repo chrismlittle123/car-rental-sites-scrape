@@ -1,0 +1,40 @@
+{
+    "resource": "/items",
+    "path": "/items",
+    "httpMethod": "GET",
+    "headers": {},
+    "multiValueHeaders": {},
+    "queryStringParameters": {
+        "limit": "10",
+        "pickup_datetime": "2024-12-01T10:00:00",
+        "table_name": "do_you_spain",
+        "dropoff_datetime": "2024-12-08T12:00:00"
+    },
+    "multiValueQueryStringParameters": {},
+    "pathParameters": {},
+    "stageVariables": {},
+    "requestContext": {
+        "resourceId": "t1uui6",
+        "resourcePath": "/items",
+        "httpMethod": "GET",
+        "extendedRequestId": "f1b2cdd4-c22f-4584-8373-13ac1851030e",
+        "requestTime": "Mon Nov 04 20:50:41 UTC 2024",
+        "path": "/items",
+        "accountId": "654654324108",
+        "protocol": "HTTP/1.1",
+        "stage": "dev",
+        "domainPrefix": "testPrefix",
+        "requestTimeEpoch": 1730317481915,
+        "requestId": "f1b2cdd4-c22f-4584-8373-13ac1851030e",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "apiKey": "test-invoke-api-key",
+            "principalOrgId": null,
+            "cognitoAuthenticationType": null,
+            "userArn": "arn:aws:sts::654654324108:assumed-role/AWSReservedSSO_AdministratorAccess_729674258dfd519f/chris@speedsheet.co.uk",
+            "apiKeyId": "test-invoke-api-key-id",
+            "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, lik"
+        }
+    }
+}

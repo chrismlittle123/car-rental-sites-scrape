@@ -1,0 +1,92 @@
+name: Triggered Workflow Prod
+
+env:
+  STAGE: "prod"
+
+on:
+  workflow_dispatch:
+    inputs:
+      SITE_NAME:
+        description: 'Site Name'
+        required: true
+        type: string
+      LOCATION:
+        description: 'Location'
+        required: true
+        type: string
+      CUSTOM_CONFIG:
+        description: 'Custom Config (true/false)'
+        required: true
+        type: string
+      PICKUP_DATETIME:
+        description: 'Pickup Date and Time'
+        required: true
+        type: string
+      DROPOFF_DATETIME:
+        description: 'Dropoff Date and Time'
+        required: true
+        type: string
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Print Environment Variables
+        run: |
+          echo "Site Name: ${{ github.event.inputs.SITE_NAME }}"
+          echo "Location: ${{ github.event.inputs.LOCATION }}"
+          echo "Custom Config: ${{ github.event.inputs.CUSTOM_CONFIG }}"
+          echo "Pickup Date and Time: ${{ github.event.inputs.PICKUP_DATETIME }}"
+          echo "Dropoff Date and Time: ${{ github.event.inputs.DROPOFF_DATETIME }}"
+
+      - name: Setup Python (3.11)
+        uses: actions/setup-python@v3
+        with:
+            python-version: 3.11
+
+      - name: Set Environment Variables
+        run: |
+          echo "AWS_ACCESS_KEY_ID_ADMIN=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY_ADMIN=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "STAGE=${{ env.STAGE }}" >> $GITHUB_ENV
+          echo "CAPTCHA_API_KEY=${{ secrets.CAPTCHA_API_KEY }}" >> $GITHUB_ENV
+          echo "SITE_NAME=${{ github.event.inputs.SITE_NAME }}" >> $GITHUB_ENV
+          echo "CUSTOM_CONFIG=${{ github.event.inputs.CUSTOM_CONFIG }}" >> $GITHUB_ENV
+          echo "PICKUP_DATETIME=${{ github.event.inputs.PICKUP_DATETIME }}" >> $GITHUB_ENV
+          echo "DROPOFF_DATETIME=${{ github.event.inputs.DROPOFF_DATETIME }}" >> $GITHUB_ENV
+
+      - name: Install Dependencies
+        run: |
+          pip install -r src/scripts/requirements.txt
+
+      - name: Run Scrape
+        run: |
+          case "${{ github.event.inputs.SITE_NAME }}" in
+            "holiday_autos")
+              echo "Output from Holiday Autos script:"
+              python src/scripts/holiday_autos/main.py "${{ github.event.inputs.LOCATION }}"
+              ;;
+            "do_you_spain")
+              echo "Output from Do You Spain script:"
+              python src/scripts/do_you_spain/main.py "${{ github.event.inputs.LOCATION }}"
+              ;;
+            "rental_cars")
+              echo "Building Docker image for Rental Cars..."
+              docker build --no-cache -t rental-cars-script src/scripts/rental_cars/docker
+              echo "Running Rental Cars script..."
+              docker run --rm \
+                -e AWS_ACCESS_KEY_ID_ADMIN \
+                -e AWS_SECRET_ACCESS_KEY_ADMIN \
+                -e STAGE \
+                rental-cars-script
+              echo "Output from Rental Cars script:"
+              python src/scripts/rental_cars/main.py "${{ github.event.inputs.LOCATION }}"
+              ;;
+            *)
+              echo "Error: Unknown site name '${{ github.event.inputs.SITE_NAME }}'"
+              exit 1
+              ;;
+          esac

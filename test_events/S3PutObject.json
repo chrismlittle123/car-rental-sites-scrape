@@ -1,0 +1,15 @@
+{
+    "version": "0",
+    "id": "4ce1a7df-d29a-2503-25a1-3a7bdb18d1e6",
+    "detail-type": "S3PutObject",
+    "source": "com.oxforddataprocesses",
+    "account": "654654324108",
+    "time": "2024-10-29T16:28:35Z",
+    "region": "eu-west-2",
+    "resources": [],
+    "detail": {
+      "event_type": "S3PutObject",
+      "bucket": "greenmotion-bucket-654654324108",
+      "object_key": "do_you_spain/raw/year%3D2024/month%3D10/day%3D22/hour%3D09/rental_period%3D01/data.parquet"
+    }
+  }

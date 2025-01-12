@@ -1,0 +1,38 @@
+{
+    "Records": [
+            {
+                "eventVersion": "2.1",
+                "eventSource": "aws:s3",
+                "awsRegion": "eu-west-2",
+                "eventTime": "2024-09-24T15:26:20.716Z",
+                "eventName": "ObjectCreated:Put",
+                "userIdentity": {
+                    "principalId": "AWS:AROAZQ3DQHWGJFPFB7OXW:chris@speedsheet.co.uk"
+                },
+                "requestParameters": {
+                    "sourceIPAddress": "194.35.122.101"
+                },
+                "responseElements": {
+                    "x-amz-request-id": "K30S7ZNB5FDK6WP4",
+                    "x-amz-id-2": "eSWyL/S/5Ft7p7nuFDjdHpv7YMSf7P1j/fLYou8nV3DfSO8lsnLXGgKO/cxVAATCp1mtrY3SRKdIsWlKYMkIUDU0bJ2WYGOT"
+                },
+                "s3": {
+                    "s3SchemaVersion": "1.0",
+                    "bucket": {
+                        "name": "greenmotion-bucket-654654324108",
+                        "ownerIdentity": {
+                            "principalId": "A9RQVGQX48SLS"
+                        },
+                        "arn": "arn:aws:s3:::greenmotion-bucket-654654324108"
+                    },
+                    "object": {
+                        "key": "rental_cars/raw/year%3D2024/month%3D10/day%3D22/hour%3D10/rental_period%3D01/data.parquet",
+                        "size": 45784,
+                        "eTag": "cf1146f77d9cbd1adcd1f23296ff5574",
+                        "versionId": "hR0V2NpgdUQ.yt.4FUqwPHKALmmPE3oj",
+                        "sequencer": "0066F2DA1C98591451"
+                    }
+                }
+            }
+        ]
+    }

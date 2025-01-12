@@ -1,0 +1,59 @@
+name: Schedule Pipeline Dev
+
+env:
+  STAGE: dev
+
+on:
+  push:
+    tags:
+      - "**dev-schedule-*"
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python (3.11)
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.11
+
+      - name: Set Environment Variables
+        run: |
+          echo "AWS_ACCESS_KEY_ID_ADMIN=${{ secrets.AWS_ACCESS_KEY_ID }}" >> $GITHUB_ENV
+          echo "AWS_SECRET_ACCESS_KEY_ADMIN=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> $GITHUB_ENV
+          echo "STAGE=${{ env.STAGE }}" >> $GITHUB_ENV
+          echo "CAPTCHA_API_KEY=${{ secrets.CAPTCHA_API_KEY }}" >> $GITHUB_ENV
+
+      - name: Install Dependencies
+        run: |
+          pip install -r src/scripts/requirements.txt
+
+      - name: Run Do You Spain Scrape
+        run: |
+          echo "Output from Do You Spain script:"
+          python src/scripts/do_you_spain/main.py "manchester"
+
+      - name: Run Holiday Autos Scrape
+        run: |
+          echo "Output from Holiday Autos script:"
+          python src/scripts/holiday_autos/main.py "manchester"
+
+      - name: Build Rental Cars Docker Image
+        run: |
+          docker build --no-cache -t rental-cars-script src/scripts/rental_cars/docker
+
+      - name: Run Rental Cars Docker Container
+        run: |
+          docker run --rm \
+            -e AWS_ACCESS_KEY_ID_ADMIN \
+            -e AWS_SECRET_ACCESS_KEY_ADMIN \
+            -e STAGE \
+            rental-cars-script
+
+      - name: Run Rental Cars Scrape
+        run: |
+          echo "Output from Rental Cars script:"
+          python src/scripts/rental_cars/main.py "manchester"

@@ -1,0 +1,6 @@
+bs4
+pytz
+pyarrow
+requests
+pydantic
+git+https://github.com/Oxford-Data-Processes/aws-utils.git

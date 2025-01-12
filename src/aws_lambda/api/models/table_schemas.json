@@ -1,0 +1,105 @@
+{
+    "do_you_spain_raw": {
+        "columns": [
+            { "name": "vehicle", "type": "string" },
+            { "name": "seats", "type": "string" },
+            { "name": "doors", "type": "string" },
+            { "name": "has_automatic_transmission", "type": "string" },
+            { "name": "has_manual_transmission", "type": "string" },
+            { "name": "full_price", "type": "double" },
+            { "name": "discounted_price", "type": "double" },
+            { "name": "price_per_day", "type": "double" },
+            { "name": "supplier_code", "type": "string" },
+            { "name": "vehicle_type", "type": "string" },
+            { "name": "pickup_datetime", "type": "string" },
+            { "name": "dropoff_datetime", "type": "string" },
+            { "name": "supplier_full_name", "type": "string" },
+            { "name": "search_datetime", "type": "string" }
+        ],
+        "partition_keys": [
+            { "name": "year", "type": "string" },
+            { "name": "month", "type": "string" },
+            { "name": "day", "type": "string" },
+            { "name": "hour", "type": "string" },
+            { "name": "rental_period", "type": "string" }
+        ]
+    },
+    "holiday_autos_raw": {
+        "columns": [
+            { "name": "vendor", "type": "string" },
+            { "name": "pickup_location", "type": "string" },
+            { "name": "return_location", "type": "string" },
+            { "name": "division", "type": "string" },
+            { "name": "vehicle", "type": "string" },
+            { "name": "transmission", "type": "string" },
+            { "name": "fuel_type", "type": "string" },
+            { "name": "passenger_quantity", "type": "string" },
+            { "name": "total_charge", "type": "string" },
+            { "name": "pickup_datetime", "type": "string" },
+            { "name": "dropoff_datetime", "type": "string" },
+            { "name": "search_datetime", "type": "string" }
+        ],
+        "partition_keys": [
+            { "name": "year", "type": "string" },
+            { "name": "month", "type": "string" },
+            { "name": "day", "type": "string" },
+            { "name": "hour", "type": "string" },
+            { "name": "rental_period", "type": "string" }
+        ]
+    },
+    "rental_cars_raw": {
+        "columns": [
+            { "name": "vehicle_id", "type": "string" },
+            { "name": "product_id", "type": "string" },
+            { "name": "supplier_id", "type": "string" },
+            { "name": "supplier_name", "type": "string" },
+            { "name": "make_and_model", "type": "string" },
+            { "name": "transmission", "type": "string" },
+            { "name": "price", "type": "double" },
+            { "name": "price_currency", "type": "string" },
+            { "name": "price_before_discounts", "type": "double" },
+            { "name": "car_categories", "type": "string" },
+            { "name": "car_class", "type": "string" },
+            { "name": "group", "type": "string" },
+            { "name": "fuel_policy", "type": "string" },
+            { "name": "fleet_id", "type": "string" },
+            { "name": "drive_away_price", "type": "double" },
+            { "name": "drive_away_price_currency", "type": "string" },
+            { "name": "drivers_age", "type": "string" },
+            { "name": "pickup_location", "type": "string" },
+            { "name": "pickup_datetime", "type": "string" },
+            { "name": "dropoff_location", "type": "string" },
+            { "name": "dropoff_datetime", "type": "string" },
+            { "name": "pickup_location_name", "type": "string" },
+            { "name": "dropoff_location_name", "type": "string" },
+            { "name": "search_datetime", "type": "string" }
+        ],
+        "partition_keys": [
+            { "name": "year", "type": "string" },
+            { "name": "month", "type": "string" },
+            { "name": "day", "type": "string" },
+            { "name": "hour", "type": "string" },
+            { "name": "rental_period", "type": "string" }
+        ]
+    },
+    "processed": {
+        "columns": [
+            { "name": "make", "type": "string" },
+            { "name": "model", "type": "string" },
+            { "name": "transmission", "type": "string" },
+            { "name": "car_group", "type": "string" },
+            { "name": "supplier", "type": "string" },
+            { "name": "total_price", "type": "double" },
+            { "name": "price_per_day", "type": "double" },
+            { "name": "pickup_datetime", "type": "string" },
+            { "name": "dropoff_datetime", "type": "string" }
+        ],
+        "partition_keys": [
+            { "name": "year", "type": "string" },
+            { "name": "month", "type": "string" },
+            { "name": "day", "type": "string" },
+            { "name": "hour", "type": "string" },
+            { "name": "rental_period", "type": "string" }
+        ]
+    }
+}
